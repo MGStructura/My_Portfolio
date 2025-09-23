@@ -32,7 +32,7 @@
     /* Header */
     header { position: sticky; top: 0; background: rgba(10,15,25,.85); backdrop-filter: blur(10px); z-index: 10; }
     nav { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; }
-    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+    .brand { font-weight: 700; }
     .navlinks { display: flex; gap: 18px; }
 
     .btn {
@@ -53,12 +53,14 @@
     .fact-label { font-weight: 600; color: var(--muted); }
     .fact-value { text-align: right; }
 
-    /* Projects */
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 18px; }
+    /* Grid */
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); gap: 18px; }
     .project .thumb { aspect-ratio: 16/10; background: linear-gradient(135deg, #1a2443, #0f1a32); }
     .body { padding: 14px; }
 
-    @media (max-width: 820px) { .hero { grid-template-columns: 1fr; } }
+    /* Two columns */
+    .twocol { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    @media (max-width: 820px) { .hero { grid-template-columns: 1fr; } .twocol { grid-template-columns: 1fr; } }
   </style>
 </head>
 
@@ -67,7 +69,7 @@
   <header>
     <div class="container">
       <nav>
-        <div class="brand"><span>Structural Portfolio</span></div>
+        <div class="brand">Structural Portfolio</div>
         <div class="navlinks">
           <a href="#projects">Projects</a>
           <a href="#services">Services</a>
@@ -107,19 +109,30 @@
     </div>
   </section>
 
+  <!-- Services -->
+  <section id="services" class="section">
+    <div class="container">
+      <h2>Services</h2>
+      <div class="grid">
+        <div class="card pad"><h3>Cost Estimation</h3><p>Detailed take-off and budgeting.</p></div>
+        <div class="card pad"><h3>Complete Plans</h3><p>Structural drawings and calculations.</p></div>
+        <div class="card pad"><h3>Assessment & Retrofitting</h3><p>Evaluation of existing structures.</p></div>
+        <div class="card pad"><h3>Design & Build</h3><p>Integrated service for efficient delivery.</p></div>
+      </div>
+    </div>
+  </section>
+
   <!-- Projects Grid -->
   <section id="projects" class="section">
     <div class="container">
       <h2>Projects</h2>
       <div class="grid">
-        <article class="project card">
-          <a href="#project1"><div class="thumb"></div><div class="body"><h3>10 Storey Mix-Use Dormitory</h3></div></a>
-        </article>
+        <article class="project card"><a href="#project1"><div class="thumb"></div><div class="body"><h3>10 Storey Mix-Use Dormitory</h3></div></a></article>
         <article class="project card"><a href="#project2"><div class="thumb"></div><div class="body"><h3>3 Story Residential</h3></div></a></article>
         <article class="project card"><a href="#project3"><div class="thumb"></div><div class="body"><h3>2 Storey RC Residential</h3></div></a></article>
         <article class="project card"><a href="#project4"><div class="thumb"></div><div class="body"><h3>2 Story RC Residential</h3></div></a></article>
         <article class="project card"><a href="#project5"><div class="thumb"></div><div class="body"><h3>Condo Unit Extension</h3></div></a></article>
-        <article class="project card"><a href="#project6"><div class="thumb"></div><div class="body"><h3>Structural Assessment (2-Story Commercial)</h3></div></a></article>
+        <article class="project card"><a href="#project6"><div class="thumb"></div><div class="body"><h3>Structural Assessment</h3></div></a></article>
         <article class="project card"><a href="#project7"><div class="thumb"></div><div class="body"><h3>Pickleball Court</h3></div></a></article>
         <article class="project card"><a href="#project8"><div class="thumb"></div><div class="body"><h3>Billboard</h3></div></a></article>
         <article class="project card"><a href="#project9"><div class="thumb"></div><div class="body"><h3>Telco Tower</h3></div></a></article>
@@ -141,6 +154,43 @@
   <section id="project9" class="section"><div class="container card pad"><h2>Telco Tower</h2><a class="btn secondary" href="assets/project9-drawings.pdf">Construction Drawings</a> <a class="btn secondary" href="assets/project9-report.pdf">Structural Report</a></div></section>
   <section id="project10" class="section"><div class="container card pad"><h2>Retaining Wall</h2><p>For slope stability.</p><a class="btn secondary" href="assets/project10-drawings.pdf">Construction Drawings</a> <a class="btn secondary" href="assets/project10-report.pdf">Structural Report</a></div></section>
   <section id="project11" class="section"><div class="container card pad"><h2>RC Water Tank</h2><a class="btn secondary" href="assets/project11-drawings.pdf">Construction Drawings</a> <a class="btn secondary" href="assets/project11-report.pdf">Structural Report</a></div></section>
+
+  <!-- About & Skills -->
+  <section id="about" class="section">
+    <div class="container twocol">
+      <div class="card pad">
+        <h2>About Me</h2>
+        <p>I am a licensed Civil Engineer with experience in structural design, analysis, and assessment. My approach focuses on safety, cost efficiency, and compliance with NSCP, ACI, AISC, and ASCE codes.</p>
+      </div>
+      <div class="card pad">
+        <h2>Skills & Tools</h2>
+        <ul>
+          <li>Structural Analysis & Design (Steel, RC, Masonry, Timber)</li>
+          <li>Codes: NSCP, ACI, AISC, ASCE 7</li>
+          <li>Software: MIDAS, ETABS, STAAD, SAP2000</li>
+          <li>Deliverables: Design calcs, BIM, shop drawings</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="section">
+    <div class="container twocol">
+      <div class="card pad">
+        <h2>Contact</h2>
+        <p>Email me with project details and files.</p>
+        <a class="btn" href="mailto:youremail@example.com">Email Me</a>
+      </div>
+      <div class="card pad">
+        <h2>Downloads</h2>
+        <ul>
+          <li><a href="assets/selected-works.pdf" target="_blank">Selected Works</a></li>
+          <li><a href="assets/CV.pdf" target="_blank">Curriculum Vitae</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
   <!-- Footer -->
   <footer class="section">
