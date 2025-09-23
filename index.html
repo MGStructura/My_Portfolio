@@ -3,8 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Structural Engineer Portfolio - Mark Galang</title>
+  <title>Structural Engineer Portfolio</title>
+  <meta name="description" content="Portfolio of structural designs, analyses, and projects." />
+  <meta name="keywords" content="structural engineer, steel design, concrete design, seismic, NSCP, AISC, portfolio" />
+
   <style>
+    /* ====== Design tokens ====== */
     :root {
       --bg: #0b1220;
       --card: #111a2e;
@@ -12,92 +16,268 @@
       --muted: #a9b4c7;
       --primary: #4fa3ff;
       --accent: #70f0c2;
+      --ring: rgba(79,163,255,.45);
       --radius: 18px;
       --shadow: 0 10px 30px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.04);
     }
-    body {
-      margin:0; font-family: system-ui, sans-serif;
-      background: var(--bg); color: var(--text);
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg:#f7f9fe;
+        --card:#ffffff;
+        --text:#142033;
+        --muted:#4a5568;
+        --shadow:0 10px 30px rgba(22,28,45,.08), inset 0 0 0 1px rgba(10,14,25,.06);
+      }
     }
-    .container { width:min(1100px, 92%); margin:auto; }
-    .section { padding:64px 0; }
-    h1,h2,h3 { margin:0 0 10px; }
-    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:18px; }
-    .card { background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow); padding:18px; }
-    .project a { text-decoration:none; color:inherit; display:block; }
-    .thumb { aspect-ratio:16/10; background:linear-gradient(135deg,#1a2443,#0f1a32); border-radius:12px; margin-bottom:12px; }
-    .tags { display:flex; flex-wrap:wrap; gap:8px; }
-    .tag { font-size:12px; padding:4px 8px; border-radius:999px; border:1px solid rgba(255,255,255,.1); color:var(--muted); }
-    .btn { display:inline-block; padding:10px 14px; border-radius:999px; background:linear-gradient(180deg,var(--primary),#2b7ad6); color:white; text-decoration:none; margin-right:10px; margin-top:10px; }
-    .btn.secondary { background:linear-gradient(180deg,#303b58,#1b2541); color:var(--text); }
-    .btn.back { background:linear-gradient(180deg,#505b75,#2a3247); }
-    /* Responsive */
-    @media(max-width:600px){ .grid{ grid-template-columns:1fr; } }
+
+    /* ====== Base ====== */
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, Segoe UI, Roboto, Arial;
+      background: radial-gradient(1200px 800px at 80% -10%, rgba(79,163,255,.18), transparent 60%),
+                  radial-gradient(1000px 700px at -10% 10%, rgba(112,240,194,.15), transparent 60%),
+                  var(--bg);
+      color: var(--text);
+    }
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { max-width: 100%; display: block; }
+    .container { width: min(1100px, 92%); margin-inline: auto; }
+    .section { padding: 64px 0; }
+
+    /* ====== Header ====== */
+    header {
+      position: sticky; top: 0; z-index: 10;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(10,15,25,.75), rgba(10,15,25,.35));
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 0;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+    .logo { width: 36px; height: 36px; border-radius: 50%;
+      background: conic-gradient(from 210deg, var(--primary), var(--accent));
+    }
+    .navlinks { display: flex; gap: 18px; font-size: 15px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, var(--primary), #2b7ad6);
+      color: white; border: none; cursor: pointer;
+      box-shadow: var(--shadow);
+    }
+    .btn.secondary {
+      background: linear-gradient(180deg, #303b58, #1b2541);
+      color: var(--text);
+    }
+
+    /* ====== Hero ====== */
+    .hero {
+      display: grid; grid-template-columns: 1.2fr 1fr;
+      gap: 34px; align-items: center; padding: 52px 0 10px;
+    }
+    .hero h1 { font-size: clamp(28px, 4vw, 44px); margin: 0 0 8px; line-height: 1.1; }
+    .hero p { color: var(--muted); font-size: 18px; }
+    .stats { display: flex; gap: 18px; margin-top: 18px; flex-wrap: wrap; }
+    .pill {
+      background: rgba(255,255,255,.06); padding: 10px 14px;
+      border-radius: 999px; font-size: 14px;
+      border: 1px solid rgba(255,255,255,.06);
+    }
+    .card { background: var(--card); border-radius: var(--radius);
+      box-shadow: var(--shadow); border:1px solid rgba(255,255,255,.06);
+    }
+    .card.pad { padding: 22px; }
+
+    /* ====== Grid ====== */
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .project { display: flex; flex-direction: column; overflow: hidden; }
+    .thumb {
+      aspect-ratio: 16/10;
+      background: linear-gradient(135deg, #1a2443, #0f1a32);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .body { padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+    .tags { display: flex; gap: 8px; flex-wrap: wrap; }
+    .tag {
+      font-size: 12px; padding: 4px 8px;
+      border-radius: 999px; border: 1px solid rgba(255,255,255,.08);
+      color: var(--muted);
+    }
+
+    /* ====== Two column layout ====== */
+    .twocol { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+
+    /* ====== Footer ====== */
+    footer { padding: 24px 0 48px; color: var(--muted); font-size: 14px; }
+
+    /* ====== Responsive ====== */
+    @media (max-width: 920px) {
+      .hero { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: 1fr 1fr; }
+      .twocol { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 620px) {
+      .grid { grid-template-columns: 1fr; }
+      nav .navlinks { display: none; }
+    }
   </style>
 </head>
+
 <body>
-
-<!-- ===== Hero ===== -->
-<section class="section">
-  <div class="container">
-    <h1>Mark Galang — Structural Engineer</h1>
-    <p>Steel, RC, Seismic design specialist. NSCP / ACI / AISC. Skilled with MIDAS, ETABS, STAAD, SAP2000, SAFE, RAM, Revit.</p>
-  </div>
-</section>
-
-<!-- ===== Projects Grid ===== -->
-<section id="projects" class="section">
-  <div class="container">
-    <h2>Selected Projects</h2>
-    <div class="grid">
-      <article class="project card"><a href="#project1"><div class="thumb"></div><h3>10-Storey Mixed-Use Dormitory</h3><div class="tags"><span class="tag">Steel</span><span class="tag">RC</span><span class="tag">Seismic</span></div></a></article>
-      <article class="project card"><a href="#project2"><div class="thumb"></div><h3>3-Storey Residential + Basement</h3><div class="tags"><span class="tag">RC</span><span class="tag">Residential</span></div></a></article>
-      <article class="project card"><a href="#project3"><div class="thumb"></div><h3>2-Storey RC Residential</h3><div class="tags"><span class="tag">RC</span><span class="tag">Housing</span></div></a></article>
-      <article class="project card"><a href="#project4"><div class="thumb"></div><h3>2-Storey RC Residential (Alt.)</h3><div class="tags"><span class="tag">RC</span></div></a></article>
-      <article class="project card"><a href="#project5"><div class="thumb"></div><h3>Condo Roof Deck Extension</h3><div class="tags"><span class="tag">Steel</span><span class="tag">Renovation</span></div></a></article>
-      <article class="project card"><a href="#project6"><div class="thumb"></div><h3>Structural Assessment (2-Storey RC Commercial)</h3><div class="tags"><span class="tag">Assessment</span></div></a></article>
-      <article class="project card"><a href="#project7"><div class="thumb"></div><h3>Pickleball Court</h3><div class="tags"><span class="tag">Sports</span></div></a></article>
-      <article class="project card"><a href="#project8"><div class="thumb"></div><h3>Billboard Structure</h3><div class="tags"><span class="tag">Steel</span></div></a></article>
-      <article class="project card"><a href="#project9"><div class="thumb"></div><h3>Telco Tower</h3><div class="tags"><span class="tag">Steel</span><span class="tag">Tower</span></div></a></article>
-      <article class="project card"><a href="#project10"><div class="thumb"></div><h3>Retaining Wall (Slope Stability)</h3><div class="tags"><span class="tag">Geotech</span><span class="tag">RC</span></div></a></article>
-      <article class="project card"><a href="#project11"><div class="thumb"></div><h3>RC Water Tank</h3><div class="tags"><span class="tag">RC</span><span class="tag">Water</span></div></a></article>
+  <!-- ====== Header ====== -->
+  <header>
+    <div class="container">
+      <nav>
+        <div class="brand">
+          <div class="logo"></div><span>Structural Portfolio</span>
+        </div>
+        <div class="navlinks">
+          <a href="#projects">Projects</a>
+          <a href="#services">Services</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <a class="btn" href="#contact">Contact</a>
+      </nav>
     </div>
-  </div>
-</section>
+  </header>
 
-<!-- ===== Project Details ===== -->
-<section id="project1" class="section"><div class="container card"><h2>10-Storey Mixed-Use Dormitory</h2><p>Dual system: steel moment frame + shearwall. Designed for seismic compliance.</p><a class="btn secondary" href="assets/project1-drawings.pdf">Construction Drawings</a><a class="btn secondary" href="assets/project1-report.pdf">Structural Report</a><a class="btn back" href="#projects">⬆ Back to Projects</a></div></section>
+  <!-- ====== Hero ====== -->
+  <section class="section">
+    <div class="container hero">
+      <div>
+        <h1>Hi, I’m <span style="background:linear-gradient(90deg,var(--primary),var(--accent)); -webkit-background-clip:text; color:transparent;">Mark Galang</span> — Your Structural Engineer.</h1>
+        <p>Experienced in steel, RC, and seismic design across mid-rise buildings and industrial facilities.</p>
+        <div class="stats">
+          <span class="pill">2+ years experience</span>
+          <span class="pill">CE License</span>
+          <span class="pill">Lateral & gravity specialist</span>
+        </div>
+        <div style="margin-top:18px; display:flex; gap:10px; flex-wrap:wrap;">
+          <a class="btn" href="#projects">See Projects</a>
+          <a class="btn secondary" href="assets/CV.pdf" target="_blank">Download CV</a>
+        </div>
+      </div>
+      <div class="card pad">
+        <h3 style="margin-top:0">Quick Facts</h3>
+        <div class="list" style="margin-top:10px;">
+          <div class="row"><span class="label">Location</span><span>Pasay City, Philippines</span></div>
+          <div class="row"><span class="label">Expertise</span><span>Steel frames, RC, Wind, Seismic</span></div>
+          <div class="row"><span class="label">Software</span><span>MIDAS, ETABS, STAAD, SAP2000</span></div>
+          <div class="row"><span class="label">Certifications</span><span>CE License</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<section id="project2" class="section"><div class="container card"><h2>3-Storey Residential with Basement</h2><p>Reinforced concrete residential with roof deck, designed for serviceability and seismic safety.</p><a class="btn secondary" href="assets/project2-drawings.pdf">Construction Drawings</a><a class="btn secondary" href="assets/project2-report.pdf">Structural Report</a><a class="btn back" href="#projects">⬆ Back to Projects</a></div></section>
+  <!-- ====== Services ====== -->
+  <section id="services" class="section">
+    <div class="container">
+      <h2>Services</h2>
+      <div class="grid">
+        <div class="card pad"><h3>Cost Estimation</h3><p>Detailed take-off and budgeting.</p></div>
+        <div class="card pad"><h3>Complete Plans</h3><p>Structural drawings and calculations.</p></div>
+        <div class="card pad"><h3>Assessment & Retrofitting</h3><p>Evaluation of existing structures.</p></div>
+        <div class="card pad"><h3>Design & Build</h3><p>Integrated service for efficient delivery.</p></div>
+      </div>
+    </div>
+  </section>
 
-<section id="project3" class="section"><div class="container card"><h2>2-Storey RC Residential</h2><p>Low-rise reinforced concrete structure designed per NSCP 2015.</p><a class="btn secondary" href="assets/project3-drawings.pdf">Construction Drawings</a><a class="btn secondary" href="assets/project3-report.pdf">Structural Report</a><a class="btn back" href="#projects">⬆ Back to Projects</a></div></section>
+  <!-- ====== Projects Grid ====== -->
+  <section id="projects" class="section">
+    <div class="container">
+      <h2>Selected Projects</h2>
+      <div class="grid">
+        <article class="project card">
+          <a href="#project1" style="color:inherit;text-decoration:none;">
+            <div class="thumb"></div>
+            <div class="body"><h3>10 Storey Mix-Use Dormitory</h3><p>Steel + RC Dual System</p></div>
+          </a>
+        </article>
+        <article class="project card">
+          <a href="#project2" style="color:inherit;text-decoration:none;">
+            <div class="thumb"></div>
+            <div class="body"><h3>3 Story Residential</h3><p>With Basement + Roof Deck</p></div>
+          </a>
+        </article>
+        <!-- Repeat for all 11 projects -->
+      </div>
+    </div>
+  </section>
 
-<section id="project4" class="section"><div class="container card"><h2>2-Storey RC Residential (Alt.)</h2><p>Alternative design of a 2-storey reinforced concrete house with optimized column spacing.</p><a class="btn secondary" href="assets/project4-drawings.pdf">Construction Drawings</a><a class="btn secondary" href="assets/project4-report.pdf">Structural Report</a><a class="btn back" href="#projects">⬆ Back to Projects</a></div></section>
+  <!-- ====== Project Details ====== -->
+  <section id="project1" class="section">
+    <div class="container card pad">
+      <h2>10 Storey Mix-Use Dormitory & Commercial</h2>
+      <p>Dual system: steel moment resisting frame with RC shearwall for seismic loads.</p>
+      <div style="margin-top:16px; display:flex; gap:10px;">
+        <a class="btn secondary" href="assets/project1-drawings.pdf" target="_blank">Construction Drawings</a>
+        <a class="btn secondary" href="assets/project1-report.pdf" target="_blank">Structural Report</a>
+      </div>
+    </div>
+  </section>
 
-<section id="project5" class="section"><div class="container card"><h2>Condo Roof Deck Extension</h2><p>Steel frame extension to create an additional room at the roof deck of a condominium.</p><a class="btn secondary" href="assets/project5-drawings.pdf">Construction Drawings</a><a class="btn secondary" href="assets/project5-report.pdf">Structural Report</a><a class="btn back" href="#projects">⬆ Back to Projects</a></div></section>
+  <!-- Add project2 ... project11 here -->
 
-<section id="project6" class="section"><div class="container card"><h2>Structural Assessment of 2-Storey RC Commercial</h2><p>Condition and safety assessment of an existing reinforced concrete commercial building.</p><a class="btn secondary" href="assets/project6-drawings.pdf">Construction Drawings</a><a class="btn secondary" href="assets/project6-report.pdf">Structural Report</a><a class="btn back" href="#projects">⬆ Back to Projects</a></div></section>
+  <!-- ====== About & Skills ====== -->
+  <section id="about" class="section">
+    <div class="container twocol">
+      <div class="card pad">
+        <h2>About</h2>
+        <p>Brief bio about your approach to safety, cost efficiency, and design codes (NSCP, ACI, AISC, ASCE).</p>
+      </div>
+      <div class="card pad">
+        <h2>Skills & Tools</h2>
+        <div class="list">
+          <div class="row"><span class="label">Codes</span><span>NSCP, ACI, AISC, ASCE 7</span></div>
+          <div class="row"><span class="label">Software</span><span>MIDAS, ETABS, STAAD, SAP2000</span></div>
+          <div class="row"><span class="label">Deliverables</span><span>Design calcs, BIM, shop drawings</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<section id="project7" class="section"><div class="container card"><h2>Pickleball Court</h2><p>Structural framing and slab design for an outdoor sports facility.</p><a class="btn secondary" href="assets/project7-drawings.pdf">Construction Drawings</a><a class="btn secondary" href="assets/project7-report.pdf">Structural Report</a><a class="btn back" href="#projects">⬆ Back to Projects</a></div></section>
+  <!-- ====== Contact ====== -->
+  <section id="contact" class="section">
+    <div class="container twocol">
+      <div class="card pad">
+        <h2>Contact</h2>
+        <p>Email me with project details and files.</p>
+        <a class="btn" href="mailto:youremail@example.com">Email Me</a>
+      </div>
+      <div class="card pad">
+        <h2>Downloads</h2>
+        <ul>
+          <li><a href="assets/selected-works.pdf" target="_blank">Selected Works</a></li>
+          <li><a href="assets/CV.pdf" target="_blank">Curriculum Vitae</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
-<section id="project8" class="section"><div class="container card"><h2>Billboard Structure</h2><p>Design of a free-standing steel billboard frame resisting wind loads.</p><a class="btn secondary" href="assets/project8-drawings.pdf">Construction Drawings</a><a class="btn secondary" href="assets/project8-report.pdf">Structural Report</a><a class="btn back" href="#projects">⬆ Back to Projects</a></div></section>
+  <!-- ====== Footer ====== -->
+  <footer>
+    <div class="container">
+      <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+        <span>© <span id="year"></span> Mark Galang. All rights reserved.</span>
+        <span>Built with HTML/CSS. Hosted on GitHub Pages.</span>
+      </div>
+    </div>
+  </footer>
 
-<section id="project9" class="section"><div class="container card"><h2>Telco Tower</h2><p>Steel tower designed for telecom equipment loading, including wind and seismic checks.</p><a class="btn secondary" href="assets/project9-drawings.pdf">Construction Drawings</a><a class="btn secondary" href="assets/project9-report.pdf">Structural Report</a><a class="btn back" href="#projects">⬆ Back to Projects</a></div></section>
-
-<section id="project10" class="section"><div class="container card"><h2>Retaining Wall for Slope Stability</h2><p>Reinforced concrete retaining wall designed using earth pressure theory and slope stability checks.</p><a class="btn secondary" href="assets/project10-drawings.pdf">Construction Drawings</a><a class="btn secondary" href="assets/project10-report.pdf">Structural Report</a><a class="btn back" href="#projects">⬆ Back to Projects</a></div></section>
-
-<section id="project11" class="section"><div class="container card"><h2>RC Water Tank</h2><p>Reinforced concrete water tank designed for hydrostatic and seismic loads.</p><a class="btn secondary" href="assets/project11-drawings.pdf">Construction Drawings</a><a class="btn secondary" href="assets/project11-report.pdf">Structural Report</a><a class="btn back" href="#projects">⬆ Back to Projects</a></div></section>
-
-<!-- ===== Smooth Scroll Script ===== -->
-<script>
-document.querySelectorAll('a[href^="#"]').forEach(a=>{
-  a.addEventListener('click', e=>{
-    const id=a.getAttribute('href').slice(1);
-    const el=document.getElementById(id);
-    if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth'}); }
-  });
-});
-</script>
-
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth', block:'start'}); }
+      });
+    });
+  </script>
 </body>
 </html>
